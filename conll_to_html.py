@@ -15,8 +15,8 @@ def gen_color(colors):
             return color
 
 # Print HTML header and stuff
-print '<meta http-equiv="Content-Type" content="text/html; charset=utf-8">'
-print '<html> \
+print('<meta http-equiv="Content-Type" content="text/html; charset=utf-8">')
+print('<html> \
 <head> \
 <style> \
 html * \
@@ -28,8 +28,8 @@ html * \
 </style>\
 </head>\
 <body>  \
-<p>'
-print '<font family="Arial, Helvetica, sans-serif">'
+<p>')
+print('<font family="Arial, Helvetica, sans-serif">')
 
 
 # Read and prepare the input
@@ -52,7 +52,7 @@ for line in lines:
 for line in lines:
     
     if line=='\n' or line =='\t\n' or line=='':
-        print '<br>'
+        print('<br>')
         sent+=1
 
     else:
@@ -60,7 +60,7 @@ for line in lines:
         
         # No coreference
         if line[-1].strip()=='_' or line[-1].strip()=='-': 
-            print line[1],
+            print(line[1], end=' ')
             
         else:
             coref_start=re.findall('\(\d+',line[-1])
@@ -69,18 +69,18 @@ for line in lines:
                 idint=re.search('\d+',id).group()
                 if len([x for x in ids if x==idint])>1: # no singeltons
                     coref_ids.append(id)
-                    if coref.has_key(id):   # open cset
-                        print '<font color="'+coref[id]+'"><sup>'+id.replace('(','[<')+'</sup>',
+                    if id in coref:   # open cset
+                        print('<font color="'+coref[id]+'"><sup>'+id.replace('(','[<')+'</sup>', end=' ')
                     else:                   # new cset
-                        color=gen_color(coref.values()) #generate random color
-                        print '<font color="'+color+'"><sup>'+id.replace('(','[>')+'</sup>',
+                        color=gen_color(list(coref.values())) #generate random color
+                        print('<font color="'+color+'"><sup>'+id.replace('(','[>')+'</sup>', end=' ')
                         coref[id]=color
             # Insert word ID here?
-            print line[1],
+            print(line[1], end=' ')
             coref_end=re.findall('\d+\)',line[-1])
             for id in coref_end:
                 idint=re.search('\d+',id).group()
                 if len([x for x in ids if x==idint])>1:
                     last_id=coref_ids.pop()
-                    print '<sup>]</sup></font>',
-print '</p></body></html>'        
+                    print('<sup>]</sup></font>', end=' ')
+print('</p></body></html>')        
