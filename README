@@ -3,8 +3,6 @@
 # contact: don.tuggener@gmail.com                         #
 ###########################################################
 
-Web: http://www.cl.uzh.ch/de/research/completed-research/coreferenceresolution.html
-
 This is the implementation of the incremental coreference resolution system for German described in: 
 Tuggener, Don (2016). Incremental coreference resolution for German. PhD Thesis, University of Zürich.
 
@@ -51,7 +49,7 @@ cat examples/example_input.txt | python /your/parzu_directory/parzu -q -o conll 
 ParZu writes to standard out, and we redirect the output to the file examples/parsed.conll
 
 2. Next, we need to extract the potentially corefering NPs (markables) from the parser. E.g.:
-python extract_mables_from_conll.py examples/example_input.txt > examples/example_input.mables
+python extract_mables_from_parzu.py examples/example_input.txt.parzu > examples/example_input.mables
 
 We store the markables in a file for inspection purposes, i.e. error analysis.
 
