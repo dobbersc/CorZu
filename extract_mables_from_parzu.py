@@ -310,12 +310,12 @@ male_names=eval(open(path+'data/male_names.txt','r').read())      #male first na
 female_names=eval(open(path+'data/female_names.txt','r').read())  #female first names
 """
 
-if os.path.isfile(corzu_dir + os.sep + 'mensch.txt'): person=eval(open(corzu_dir + os.sep + 'mensch.txt','r').read())  #Person descriptions extracted from Germanet 7 nomen.Mensch.xml
+if os.path.isfile(corzu_dir + os.sep + 'mensch.txt'): person=eval(open(corzu_dir + os.sep + 'mensch.txt','r', encoding='utf-8').read())  #Person descriptions extracted from Germanet 7 nomen.Mensch.xml
 else:
     print('Not using mensch.txt; consider using it for improved pronoun resolution performance (see README).', file=sys.stderr)
     person=[]
-male_names=eval(open(corzu_dir + os.sep + 'male_names.txt','r').read())      #male first names, used for gender disambiguation of named entities
-female_names=eval(open(corzu_dir + os.sep + 'female_names.txt','r').read())  #female first names
+male_names=eval(open(corzu_dir + os.sep + 'male_names.txt','r', encoding='utf-8').read())      #male first names, used for gender disambiguation of named entities
+female_names=eval(open(corzu_dir + os.sep + 'female_names.txt','r', encoding='utf-8').read())  #female first names
 
 doc_counter=0
 
@@ -335,7 +335,7 @@ haben={}
 gmods={}
 determiners={}
 
-for line in open(sys.argv[1],'r').readlines():
+for line in open(sys.argv[1],'r', encoding='utf-8').readlines():
 
     if line=='\n' or line=='\t\t\t\t\t\t\t\t\t\n':    #newline is sentence boundary, start processing the aggregated sentence
 

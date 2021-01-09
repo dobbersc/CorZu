@@ -10,7 +10,7 @@ import sys
 import pickle
 
 #global vvpp_sein_exclussive
-#vvpp_sein_exclussive=cPickle.load(open('vvpp_sein_exclussive.cpkl','r'))
+#vvpp_sein_exclussive=cPickle.load(open('vvpp_sein_exclussive.cpkl','r', encoding='utf-8'))
 
 def get_gov(tok, sent, mode = 'active'):
     ''' return the main verb governing a token '''

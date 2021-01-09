@@ -11,7 +11,7 @@ def gen_color(colors):
     while True:
         colorcode=random.randint(0, 16777215)
         color='#%x'%colorcode
-        if not color in colors: 
+        if not color in colors:
             return color
 
 # Print HTML header and stuff
@@ -33,7 +33,7 @@ print('<font family="Arial, Helvetica, sans-serif">')
 
 
 # Read and prepare the input
-dok=open(sys.argv[1],'r').read()
+dok=open(sys.argv[1],'r', encoding='utf-8').read()
 lines=dok.split('\n')
 ids=[]
 coref={}    # colors dict
@@ -50,18 +50,18 @@ for line in lines:
                 if not m=='': ids.append(re.search('\d+',m).group())
 
 for line in lines:
-    
+
     if line=='\n' or line =='\t\n' or line=='':
         print('<br>')
         sent+=1
 
     else:
         line=re.split('\t| +',line)
-        
+
         # No coreference
-        if line[-1].strip()=='_' or line[-1].strip()=='-': 
+        if line[-1].strip()=='_' or line[-1].strip()=='-':
             print(line[1], end=' ')
-            
+
         else:
             coref_start=re.findall('\(\d+',line[-1])
             coref_start.reverse()
@@ -83,4 +83,4 @@ for line in lines:
                 if len([x for x in ids if x==idint])>1:
                     last_id=coref_ids.pop()
                     print('<sup>]</sup></font>', end=' ')
-print('</p></body></html>')        
+print('</p></body></html>')

@@ -427,7 +427,7 @@ def get_best(ante_cands,ante_cands_csets,mable,docid):
             ante_counts[mable[4]]+=len(all_antes)
             
         if classifier=='thebeast':
-            f=open(train_file,'a')  #accumualte training cases
+            f=open(train_file,'a', encoding='utf-8')  #accumualte training cases
 
         if classifier=='wapiti':
             wapiti_cmd=''
@@ -463,7 +463,7 @@ def get_best(ante_cands,ante_cands_csets,mable,docid):
                 raw_counts_twin_features[mable[4]]={}            
             
         if classifier=='thebeast':
-            f=open('mln/test.atoms','w')  #single test case
+            f=open('mln/test.atoms','w', encoding='utf-8')  #single test case
             
         if classifier=='wapiti':
             wapiti_cmd=''   
@@ -551,7 +551,7 @@ def get_best(ante_cands,ante_cands_csets,mable,docid):
                 outs.append(out)
                 if out.startswith('End:coref'): 
                     break                                   
-            res_thebeast=open('mln/thebeast.res').read()
+            res_thebeast=open('mln/thebeast.res', encoding='utf-8').read()
             try:
                 ante=re.search('>coref\n\d+.*?(\d+)',res_thebeast).group(1)
                 ante=next(a for a in all_antes if a[0]==int(ante))
@@ -1496,7 +1496,7 @@ def main(file1,file2='',file3=''):
             print(file2,'does not exist', file=sys.stderr)
             return               
     
-    with open(file1,'r') as f: 
+    with open(file1,'r', encoding='utf-8') as f:
         docs=f.read()
     docs=docs.split('####')
     del docs[-1]
@@ -1516,15 +1516,15 @@ def main(file1,file2='',file3=''):
         
         if classifier=='mle':
             global weights_global
-            if preprocessing=='gold': weights_global=eval(open(corzu_dir + os.sep + 'mle_weights_tmp','r').read())
-            if preprocessing=='real': weights_global=eval(open(corzu_dir + os.sep + 'mle_weights_real','r').read())
+            if preprocessing=='gold': weights_global=eval(open(corzu_dir + os.sep + 'mle_weights_tmp','r', encoding='utf-8').read())
+            if preprocessing=='real': weights_global=eval(open(corzu_dir + os.sep + 'mle_weights_real','r', encoding='utf-8').read())
             global raw_counts_twin_features            
             raw_counts_twin_features={}
             
             if twin_mode=='test':
                 global twin_weights_1st,twin_weights_2nd
-                twin_weights_1st=eval(open('mle_weights_twin_candidates_1st','r').read())
-                twin_weights_2nd=eval(open('mle_weights_twin_candidates_2nd','r').read())
+                twin_weights_1st=eval(open('mle_weights_twin_candidates_1st','r', encoding='utf-8').read())
+                twin_weights_2nd=eval(open('mle_weights_twin_candidates_2nd','r', encoding='utf-8').read())
             
         if classifier=='thebeast':            
             global thebeast
@@ -1882,24 +1882,24 @@ def main(file1,file2='',file3=''):
                         weights[pos][feat][val]=weight
 
             if preprocessing=='gold':                        
-                with open('mle_weights_tmp','w') as f: 
+                with open('mle_weights_tmp','w', encoding='utf-8') as f:
                     f.write(str(weights)+'\n')        
-                with open('mle_weights_tmp_raw_counts','w') as f: 
+                with open('mle_weights_tmp_raw_counts','w', encoding='utf-8') as f:
                     f.write(str(raw_counts)+'\n')                    
             if preprocessing=='real':                        
-                with open('mle_weights_real', 'w') as f:
+                with open('mle_weights_real', 'w', encoding='utf-8') as f:
                     f.write(str(weights)+'\n')        
 
         if classifier=='wapiti':                       
-            with open(wapiti_path+'/pper_train','w') as f:
+            with open(wapiti_path+'/pper_train','w', encoding='utf-8') as f:
                 for i in pper_train: f.write(i)
-            with open(wapiti_path+'/pposat_train','w') as f:
+            with open(wapiti_path+'/pposat_train','w', encoding='utf-8') as f:
                 for i in pposat_train: f.write(i)
-            with open(wapiti_path+'/prels_train','w') as f:
+            with open(wapiti_path+'/prels_train','w', encoding='utf-8') as f:
                 for i in prels_train: f.write(i)    
-            with open(wapiti_path+'/prelat_train','w') as f:
+            with open(wapiti_path+'/prelat_train','w', encoding='utf-8') as f:
                 for i in prelat_train: f.write(i)                    
-            with open(wapiti_path+'/pds_train','w') as f:
+            with open(wapiti_path+'/pds_train','w', encoding='utf-8') as f:
                 for i in pds_train: f.write(i)                      
                                            
     if mode=='test':
@@ -1915,9 +1915,9 @@ def main(file1,file2='',file3=''):
                             twin_weights_1st[pos][feat][val]=weight_1st
                             weight_2nd=float(raw_counts_twin_features[pos][feat][val]['neg'])/(raw_counts_twin_features[pos][feat][val]['pos']+raw_counts_twin_features[pos][feat][val]['neg'])
                             twin_weights_2nd[pos][feat][val]=weight_2nd                        
-                with open('mle_weights_twin_candidates_1st','w') as f: 
+                with open('mle_weights_twin_candidates_1st','w', encoding='utf-8') as f:
                     f.write(str(twin_weights_1st)+'\n')    
-                with open('mle_weights_twin_candidates_2nd','w') as f: 
+                with open('mle_weights_twin_candidates_2nd','w', encoding='utf-8') as f:
                     f.write(str(twin_weights_2nd)+'\n')    
     
         if classifier=='thebeast':
@@ -1929,7 +1929,7 @@ def main(file1,file2='',file3=''):
         ''' OUTPUT '''
     
         #Output            
-        f=open(file3,'w')
+        f=open(file3,'w', encoding='utf-8')
         docnr=0
         sent=1        
 
@@ -1953,7 +1953,7 @@ def main(file1,file2='',file3=''):
                         csets[(str(m[1]),str(m[3]),'c')].append(cset_id)  #'c' for close cset                                                     
         mables=res[docid][0]    #TODO make same conversion as above, if singletons are wanted in the output, otherwise it's painfully slow
 
-        for line in open(file2,'r').readlines():
+        for line in open(file2,'r', encoding='utf-8').readlines():
             if line=='\n':
                 sent+=1
                 f.write(line)
@@ -2096,8 +2096,8 @@ def main(file1,file2='',file3=''):
         for pos in ['PPER','PPOSAT','PRELS','PDS','PRELAT','ALL']: print('&', "%.2f" % accuracies[pos], end=' ')
         print('\\\\') 
         
-        #cPickle.dump(single_ante_counts,open('single_ante_counts.cpkl','w'))
-        #cPickle.dump(avg_ante_counts,open('avg_ante_counts.cpkl','w'))  
+        #cPickle.dump(single_ante_counts,open('single_ante_counts.cpkl','w', encoding='utf-8'))
+        #cPickle.dump(avg_ante_counts,open('avg_ante_counts.cpkl','w', encoding='utf-8'))
 
         # Print rank index frequency of the true antecedent
         """
@@ -2117,7 +2117,7 @@ def main(file1,file2='',file3=''):
         """ 
            
     if verb_postfilter=='train':   
-        f=open('verb_postfilter.arff','w')
+        f=open('verb_postfilter.arff','w', encoding='utf-8')
         f.write('@RELATION verb_sel_pref\n\n')
         for n in verb_postfilter_feature_names: 
             f.write('@ATTRIBUTE '+n+' NUMERIC\n')
